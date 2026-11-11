@@ -34,7 +34,8 @@ with mlflow.start_run(run_name="RandomForest_Version_1"):
     mlflow.sklearn.log_model(
         sk_model=model,
         name="iris_random_forest",
-        registered_model_name=registered_name
+        registered_model_name=registered_name,
+        skops_trusted_types=["sklearn.tree._tree.Tree"],
     )
 
 print("Model registered:", registered_name)
