@@ -1,0 +1,9 @@
+{
+    "model_name": "iris_random_forest",
+    "model_version": "1",
+    "algorithm": "RandomForestClassifier",
+    "n_estimators": 100,
+    "max_depth": 5,
+    "test_accuracy": 0.9333333333333333,
+    "scikit_learn_version": "1.6.1"
+}
