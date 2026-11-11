@@ -1,0 +1,26 @@
+stages:
+  prepare:
+    cmd: python exp5_pipeline/src/prepare.py
+    deps:
+      - exp5_pipeline/data/raw/iris.csv
+      - exp5_pipeline/src/prepare.py
+    outs:
+      - exp5_pipeline/data/processed/train.csv
+      - exp5_pipeline/data/processed/test.csv
+
+  train:
+    cmd: python exp5_pipeline/src/train.py
+    deps:
+      - exp5_pipeline/data/processed/train.csv
+      - exp5_pipeline/src/train.py
+    outs:
+      - exp5_pipeline/models/model.pkl
+
+  evaluate:
+    cmd: python exp5_pipeline/src/evaluate.py
+    deps:
+      - exp5_pipeline/data/processed/test.csv
+      - exp5_pipeline/models/model.pkl
+      - exp5_pipeline/src/evaluate.py
+    metrics:
+      - exp5_pipeline/metrics/metrics.json

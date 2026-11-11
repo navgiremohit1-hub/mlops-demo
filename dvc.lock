@@ -1,0 +1,58 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python exp5_pipeline/src/prepare.py
+    deps:
+    - path: exp5_pipeline/data/raw/iris.csv
+      hash: md5
+      md5: a62a7066e3604aab9a5d5183cd83b446
+      size: 3881
+    - path: exp5_pipeline/src/prepare.py
+      hash: md5
+      md5: 7c579e295c136d4cb9741dd877a838b8
+      size: 593
+    outs:
+    - path: exp5_pipeline/data/processed/test.csv
+      hash: md5
+      md5: 908095b56e17a7b0dfd507f6953fcbc8
+      size: 841
+    - path: exp5_pipeline/data/processed/train.csv
+      hash: md5
+      md5: c6beeff754d741f7d449c46d7c4a1843
+      size: 3098
+  train:
+    cmd: python exp5_pipeline/src/train.py
+    deps:
+    - path: exp5_pipeline/data/processed/train.csv
+      hash: md5
+      md5: c6beeff754d741f7d449c46d7c4a1843
+      size: 3098
+    - path: exp5_pipeline/src/train.py
+      hash: md5
+      md5: c0ee1c539ceb67de28379e6d18fa8d25
+      size: 547
+    outs:
+    - path: exp5_pipeline/models/model.pkl
+      hash: md5
+      md5: 9020ff03a30b358373d2c7adb0823426
+      size: 314479
+  evaluate:
+    cmd: python exp5_pipeline/src/evaluate.py
+    deps:
+    - path: exp5_pipeline/data/processed/test.csv
+      hash: md5
+      md5: 908095b56e17a7b0dfd507f6953fcbc8
+      size: 841
+    - path: exp5_pipeline/models/model.pkl
+      hash: md5
+      md5: 9020ff03a30b358373d2c7adb0823426
+      size: 314479
+    - path: exp5_pipeline/src/evaluate.py
+      hash: md5
+      md5: 701e8ab34ac96977626b17f361652ca9
+      size: 684
+    outs:
+    - path: exp5_pipeline/metrics/metrics.json
+      hash: md5
+      md5: c2aab05f3845e12134c16ce91f7169b6
+      size: 37
